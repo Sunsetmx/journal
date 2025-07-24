@@ -1,17 +1,54 @@
 ---
-/* No requiere props */
+/* Componente mejorado para el toggle de tema */
 ---
+
 <script type="module" is:inline>
-  const btn = document.getElementById('theme-toggle');
-  if (btn) {
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    // Función para aplicar el tema
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      
+      // Actualizar aria-label
+      btn.setAttribute('aria-label', 
+        theme === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'
+      );
+    }
+
+    // Función para obtener el tema preferido
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // Inicializar tema
+    const currentTheme = getPreferredTheme();
+    applyTheme(currentTheme);
+
+    // Event listener para el botón
     btn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      applyTheme(next);
     });
-    // Inicializa desde localStorage
-    const stored = localStorage.getItem('theme');
-    if (stored) document.documentElement.setAttribute('data-theme', stored);
+
+    // Escuchar cambios en la preferencia del sistema
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
   }
 </script>

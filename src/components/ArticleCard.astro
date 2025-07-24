@@ -1,13 +1,197 @@
 ---
 const { title, summary, tags = [], date, link } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('es-ES', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+});
 ---
-<article class="article-card" style="border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1.25rem;">
-  <h3 style="margin:0 0 0.4em 0;font-size:1.1em;"><a href={link}>{title}</a></h3>
-  <div style="font-size:0.93em;color:var(--accent);margin-bottom:0.3em;">{date}</div>
-  <p style="margin:0 0 0.45em 0;">{summary}</p>
-  <div style="display:flex;flex-wrap:wrap;gap:0.3em;">
-    {tags.map(t => (
-      <span style="background:var(--neutral);color:var(--accent);border-radius:3px;padding:0.18em 0.7em;font-size:0.85em;">{t}</span>
-    ))}
+
+<article class="article-card">
+  <div class="card-content">
+    <header class="card-header">
+      <h3 class="card-title">
+        <a href={link} class="title-link">{title}</a>
+      </h3>
+      <time class="card-date" datetime={date}>{formattedDate}</time>
+    </header>
+    
+    <p class="card-summary">{summary}</p>
+    
+    {tags.length > 0 && (
+      <div class="card-tags">
+        {tags.map(tag => (
+          <span class="tag">
+            <a href={`/tags/${tag}`} class="tag-link">#{tag}</a>
+          </span>
+        ))}
+      </div>
+    )}
   </div>
+  
+  <footer class="card-footer">
+    <a href={link} class="read-more">
+      Leer artículo
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M13.25 10.75H6a.75.75 0 000 1.5h7.25v2.69l3.72-3.72a.75.75 0 000-1.06l-3.72-3.72v2.69z"/>
+      </svg>
+    </a>
+  </footer>
 </article>
+
+<style>
+  .article-card {
+    background: var(--color-surface-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform var(--transition-normal);
+  }
+
+  .article-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-accent);
+  }
+
+  .article-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .title-link {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .title-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .card-date {
+    color: var(--color-text-tertiary);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .card-summary {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .tag {
+    display: inline-block;
+  }
+
+  .tag-link {
+    display: inline-block;
+    background: var(--color-surface-secondary);
+    color: var(--color-text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--color-border);
+  }
+
+  .tag-link:hover {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  .card-footer {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .read-more:hover {
+    color: var(--color-accent-hover);
+    text-decoration: none;
+    transform: translateX(2px);
+  }
+
+  .read-more svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .read-more:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .article-card {
+      padding: var(--space-lg);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+    }
+  }
+</style>
