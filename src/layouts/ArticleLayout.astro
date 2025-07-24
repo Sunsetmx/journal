@@ -1,0 +1,43 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+const { title, date, tags = [], summary, cover, image1, image2, series } = Astro.props;
+---
+<BaseLayout title={title} description={summary} ogImage={cover}>
+  <article class="article-main" style="max-width:750px;margin:0 auto 3rem auto;padding:1rem;">
+    {cover && (
+      <img src={cover} alt={`Portada de ${title}`} style="width:100%;border-radius:10px;margin-bottom:2em;object-fit:cover;max-height:320px;" />
+    )}
+    <header>
+      <h1 style="font-family:var(--font-serif);font-size:2.2em;margin-top:0;">{title}</h1>
+      <div style="color:var(--color-neutral);font-size:1.05em;margin-bottom:1em;">
+        <time datetime={date}>{date}</time>
+        {series && (
+          <>
+            &nbsp;|&nbsp;<a href={`/series/${series}/`} style="color:var(--color-accent);">{series}</a>
+          </>
+        )}
+      </div>
+      <p style="color:var(--color-accent);font-size:1.13em;margin-bottom:0.6em;">{summary}</p>
+      <nav aria-label="Etiquetas del artículo" style="margin-bottom:1.5em;">
+        {tags.map(t => (
+          <span style="background:var(--color-neutral);color:var(--color-bg);border-radius:3px;padding:0.18em 0.7em;font-size:0.93em;margin-right:0.45em;display:inline-block;">
+            {t}
+          </span>
+        ))}
+      </nav>
+    </header>
+    {(image1 || image2) && (
+      <section style="display:flex;gap:1.5em;flex-wrap:wrap;justify-content:center;margin-bottom:2em;">
+        {image1 && (
+          <img src={image1} alt="Evidencia 1" style="max-width:47%;border-radius:8px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.07);" loading="lazy" />
+        )}
+        {image2 && (
+          <img src={image2} alt="Evidencia 2" style="max-width:47%;border-radius:8px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.07);" loading="lazy" />
+        )}
+      </section>
+    )}
+    <section style="font-size:1.18em;line-height:1.75;font-family:var(--font-main);color:var(--color-fg);">
+      <slot />
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import { getSeo } from "../utils/seo.ts";
+const { title, description, ogImage, url } = Astro.props;
+const seo = getSeo({ title, description, ogImage, url });
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta property="og:title" content={seo.ogTitle} />
+    <meta property="og:description" content={seo.ogDescription} />
+    <meta property="og:image" content={seo.ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={seo.url} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/variables.css" />
+    <link rel="icon" href="/images/favicon.svg" />
+    <slot name="head" />
+  </head>
+  <body>
+    <Header />
+    <ThemeToggle />
+    <main id="main-content" tabindex="-1" style="min-height:70vh;">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,9 @@
+---
+const { title, subtitle } = Astro.props;
+---
+<section style="background:var(--color-hero-bg);border-radius:14px;padding:3.5rem 2rem 2.5rem 2rem;margin:2rem 0 2.5rem 0;text-align:center;">
+  <h1 style="font-family:var(--font-serif);font-size:2.8em;font-weight:700;line-height:1.08;margin-bottom:0.3em;">{title}</h1>
+  <p style="color:var(--color-neutral);font-size:1.2em;max-width:550px;margin:0 auto 1.5em auto;">
+    {subtitle}
+  </p>
+</section>

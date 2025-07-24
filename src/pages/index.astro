@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Grid from "../components/Grid.astro";
+import SeriesCard from "../components/SeriesCard.astro";
+import { getAllSeries } from "../utils/content.ts";
+const series = await getAllSeries();
+---
+<BaseLayout title="Inicio" description="Periodismo investigativo y filtraciones en Quintana Roo y México.">
+  <Hero 
+    title="Defender la soberanía y bienestar de México y Quintana Roo"
+    subtitle="Periodismo de investigación independiente, transparencia y denuncia. Reportajes, series y filtraciones sobre crimen, corrupción y poder."
+  />
+  <section>
+    <h2 class="section-title">Series recientes</h2>
+    <Grid>
+      {series.slice(0, 3).map(s => <SeriesCard {...s} link={`/series/${s.slug}/`} />)}
+    </Grid>
+  </section>
+  <section style="margin-top:2.5em;text-align:center;">
+    <a href="/leak" class="button" style="font-size:1.1em;padding:0.8em 2em;">Filtra información o denuncia aquí</a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArticleCard from "../../../components/ArticleCard.astro";
+
+const { "series-name": slug } = Astro.params;
+const mdFiles = await Astro.glob(`../${slug}/*.md`);
+const articles = mdFiles
+  .map(({ frontmatter, url }) => ({
+    ...frontmatter,
+    url
+  }))
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+const seriesData = (await import(`../${slug}/series.json`)).default;
+---
+<BaseLayout title={seriesData.title} description={seriesData.description} ogImage={seriesData.cover}>
+  <h1>{seriesData.title}</h1>
+  <p style="color:var(--color-neutral);">{seriesData.description}</p>
+  <section>
+    <h2>Artículos</h2>
+    <div style="display:grid;gap:2em;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));">
+      {articles.map(article => <ArticleCard {...article} link={article.url} />)}
+    </div>
+  </section>
+</BaseLayout>

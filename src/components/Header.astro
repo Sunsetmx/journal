@@ -1,0 +1,19 @@
+---
+const nav = [
+  { href: "/series", label: "Series" },
+  { href: "/contact", label: "Contacto" },
+  { href: "/leak", label: "Leaks" },
+  { href: "/donate", label: "Donar" },
+];
+---
+<header style="height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;box-shadow:0 1px 0 0 var(--color-border);background:var(--color-card);">
+  <div style="font-weight:700;font-size:1.3em;letter-spacing:0.04em;text-transform:uppercase;">Alias del Periodista</div>
+  <nav aria-label="Principal">
+    {nav.map(item => (
+      <a href={item.href} style="margin-left:2em;font-weight:500;font-size:1.05em;letter-spacing:0.02em;">{item.label}</a>
+    ))}
+  </nav>
+  <button id="theme-toggle" aria-label="Cambiar tema" style="margin-left:2em;background:none;border:none;cursor:pointer;font-size:1.4em;">
+    <svg width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="10" stroke="var(--color-accent)" stroke-width="2" fill="none"/></svg>
+  </button>
+</header>

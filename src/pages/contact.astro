@@ -1,0 +1,36 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contacto | Periodismo Independiente Quintana Roo</title>
+    <meta name="description" content="Canales de contacto seguro: email, Signal, Telegram y guía PGP para enviar información cifrada." />
+    <meta property="og:title" content="Contacto | Periodismo Independiente Quintana Roo" />
+    <meta property="og:description" content="Canales de contacto seguro: email, Signal, Telegram y guía PGP para enviar información cifrada." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <Header />
+    <main style="max-width:700px;margin:2rem auto;">
+      <h1>Contacto seguro</h1>
+      <ul>
+        <li>Email: <a href="mailto:periodista@protonmail.com">periodista@protonmail.com</a></li>
+        <li>Signal: <a href="https://signal.me/#p/+529991234567" rel="noopener">+52 999 123 4567</a></li>
+        <li>Telegram: <a href="https://t.me/aliasperiodista" rel="noopener">@aliasperiodista</a></li>
+      </ul>
+      <section>
+        <h2>Clave PGP</h2>
+        <a class="button" href="/pgp/publickey.asc" download>Descargar clave pública PGP</a>
+        <details style="margin-top:1em;">
+          <summary style="cursor:pointer;font-weight:500;">Guía paso a paso: Cómo usar PGP con cualquier correo</summary>
+          <p>Puedes descargar la guía detallada aquí:</p>
+          <a class="button" href="/pgp/pgp-guide.pdf" download>Descargar guía PDF</a>
+        </details>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

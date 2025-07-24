@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Grid from "../../components/Grid.astro";
+import SeriesCard from "../../components/SeriesCard.astro";
+import { getAllSeries } from "../../utils/content.ts";
+const series = await getAllSeries();
+---
+<BaseLayout title="Series" description="Todas las series de investigación periodística independientes en Quintana Roo y México.">
+  <h1>Series de investigación</h1>
+  <Grid>
+    {series.map(s => <SeriesCard {...s} link={`/series/${s.slug}/`} />)}
+  </Grid>
+</BaseLayout>

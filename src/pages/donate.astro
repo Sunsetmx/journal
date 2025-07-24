@@ -1,0 +1,37 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Donaciones | Periodismo Independiente Quintana Roo</title>
+    <meta name="description" content="Apoya el periodismo independiente. Dona de forma anónima y segura (Bitcoin, BTC email, fiat privado)." />
+    <meta property="og:title" content="Donaciones | Periodismo Independiente Quintana Roo" />
+    <meta property="og:description" content="Apoya el periodismo independiente. Dona de forma anónima y segura (Bitcoin, BTC email, fiat privado)." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <Header />
+    <main style="max-width:700px;margin:2rem auto;">
+      <h1>Donaciones anónimas y seguras</h1>
+      <p>Apoya la investigación independiente. Tu anonimato y protección son prioridad.</p>
+      <ul>
+        <li>
+          Bitcoin (BTC): <code>bc1qexampleaddress12345</code>
+        </li>
+        <li>
+          Envío BTC por email: <code>alias@blink.sv</code>
+        </li>
+        <li>
+          Donación fiat privada: <a href="https://donorbox.org/ejemplo" rel="noopener">Donorbox (soporta tarjetas y transferencias anónimas)</a>
+        </li>
+      </ul>
+      <div style="background:var(--neutral);padding:1em;border-radius:5px;margin-top:1.5em;">
+        <strong>Nota:</strong> Se recomienda siempre proteger tus datos. No uses métodos vinculados a tu identidad personal.
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

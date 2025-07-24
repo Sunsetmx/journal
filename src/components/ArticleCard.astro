@@ -1,0 +1,13 @@
+---
+const { title, summary, tags = [], date, link } = Astro.props;
+---
+<article class="article-card" style="border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1.25rem;">
+  <h3 style="margin:0 0 0.4em 0;font-size:1.1em;"><a href={link}>{title}</a></h3>
+  <div style="font-size:0.93em;color:var(--accent);margin-bottom:0.3em;">{date}</div>
+  <p style="margin:0 0 0.45em 0;">{summary}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.3em;">
+    {tags.map(t => (
+      <span style="background:var(--neutral);color:var(--accent);border-radius:3px;padding:0.18em 0.7em;font-size:0.85em;">{t}</span>
+    ))}
+  </div>
+</article>

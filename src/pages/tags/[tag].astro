@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Grid from "../../components/Grid.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getAllSeries, getArticlesBySeries } from "../../utils/content.ts";
+const { tag } = Astro.params;
+const series = await getAllSeries();
+let articles = [];
+for (const s of series) {
+  const arts = await getArticlesBySeries(s.slug);
+  articles = articles.concat(arts.filter(a => (a.tags||[]).includes(tag)));
+}
+articles.sort((a, b) => b.date.localeCompare(a.date));
+---
+<BaseLayout title={`Artículos sobre ${tag}`} description={`Todos los artículos etiquetados con ${tag}.`}>
+  <h1>Artículos etiquetados: {tag}</h1>
+  <Grid>
+    {articles.map(a => <ArticleCard {...a} />)}
+  </Grid>
+</BaseLayout>
